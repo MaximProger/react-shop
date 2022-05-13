@@ -2,6 +2,8 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import ProductList from "../components/product/ProductList";
 import Loading from "../components/Loading";
+import Dialog from "../components/UI/Dialog";
+import ProductForm from '../components/product/ProductForm'
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -34,7 +36,14 @@ function Products() {
   }
 
   return (
-      loading ? <Loading /> : <ProductList products={products} createProduct={createProduct} removeProduct={removeProduct} isShow={isShow} setIsShow={setIsShow} />
+      <div>
+          <button type="button" className="btn btn-primary mb-3" onClick={() => setIsShow(true)}>
+          Add product
+        </button>
+        {isShow && <Dialog setIsShow={setIsShow}><ProductForm create={createProduct} /></Dialog>}
+        {loading ? <Loading /> : <ProductList products={products} createProduct={createProduct} removeProduct={removeProduct} isShow={isShow} setIsShow={setIsShow} />}
+      </div>
+      
   );
 }
 
