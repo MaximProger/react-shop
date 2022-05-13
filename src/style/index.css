@@ -1,0 +1,9 @@
+.card-img-top {
+  width: 100%;
+  height: 286px;
+  object-fit: contain;
+}
+
+.card-img-top--detail {
+  width: 286px;
+}
