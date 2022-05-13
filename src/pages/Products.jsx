@@ -6,6 +6,7 @@ import Loading from "../components/Loading";
 function Products() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isShow, setIsShow] = useState(false);
 
   useEffect(() => {
     fetchProducts();
@@ -27,8 +28,13 @@ function Products() {
     setProducts(products.filter(product => product.id !== id))
   }
 
+  function createProduct(product) {
+    setProducts([...products, product])
+    setIsShow(false)
+  }
+
   return (
-      loading ? <Loading /> : <ProductList products={products} removeProduct={removeProduct} />
+      loading ? <Loading /> : <ProductList products={products} createProduct={createProduct} removeProduct={removeProduct} isShow={isShow} setIsShow={setIsShow} />
   );
 }
 
