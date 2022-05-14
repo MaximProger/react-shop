@@ -1,6 +1,15 @@
+import { useDispatch } from 'react-redux';
 import {useNavigate} from 'react-router-dom'
+import { removeProduct } from '../../redux/actions';
 
-function ProductItem({product, removeProduct}) {
+function ProductItem({product}) {
+
+  const dispatch = useDispatch();
+
+  const handleDelete = evt => {
+    evt.preventDefault();
+    dispatch(removeProduct(product.id))
+  }
 
   let navigate = useNavigate();
 
@@ -25,7 +34,7 @@ function ProductItem({product, removeProduct}) {
       <button
         href="#"
         className="btn btn-primary"
-        onClick={() => removeProduct(product.id)}
+        onClick={handleDelete}
       >
         Delete
       </button>

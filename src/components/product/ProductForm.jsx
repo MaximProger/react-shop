@@ -1,8 +1,12 @@
 import { useState, createRef } from "react";
+import { useDispatch } from "react-redux";
+import { createProduct } from "../../redux/actions";
 
-function ProductDialog({create}) {
+function ProductForm({setIsShow}) {
 
   const [product, setProduct] = useState({title: "", description: "", image: ""})
+
+  const dispatch = useDispatch();
 
   function onFileChange(evt) {
     var files = evt.target.files || evt.dataTransfer.files;
@@ -25,7 +29,8 @@ function ProductDialog({create}) {
     const newProduct = {
       ...product, id: Date.now()
     }
-    create(newProduct)
+    dispatch(createProduct(newProduct))
+    setIsShow(false)
     setProduct({title: "", description: "", image: ""})
   }
 
@@ -67,4 +72,4 @@ function ProductDialog({create}) {
   );
 }
 
-export default ProductDialog;
+export default ProductForm;

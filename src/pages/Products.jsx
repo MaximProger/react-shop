@@ -1,47 +1,29 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
 import ProductList from "../components/product/ProductList";
 import Loading from "../components/Loading";
 import Dialog from "../components/UI/Dialog";
 import ProductForm from '../components/product/ProductForm'
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProducts } from "../redux/actions";
 
 function Products() {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const products = useSelector(state => state.productReducer.products)
+  const loading = useSelector(state => state.appReducer.loading)
   const [isShow, setIsShow] = useState(false);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    fetchProducts();
+    dispatch(fetchProducts())
   }, []);
-
-  async function fetchProducts() {
-    try {
-      setLoading(true);
-      const res = await axios.get("https://fakestoreapi.com/products?limit=6");
-      setProducts(res.data);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  function removeProduct(id) {
-    setProducts(products.filter(product => product.id !== id))
-  }
-
-  function createProduct(product) {
-    setProducts([...products, product])
-    setIsShow(false)
-  }
 
   return (
       <div>
           <button type="button" className="btn btn-primary mb-3" onClick={() => setIsShow(true)}>
           Add product
         </button>
-        {isShow && <Dialog setIsShow={setIsShow}><ProductForm create={createProduct} /></Dialog>}
-        {loading ? <Loading /> : <ProductList products={products} createProduct={createProduct} removeProduct={removeProduct} isShow={isShow} setIsShow={setIsShow} />}
+        {isShow && <Dialog setIsShow={setIsShow}><ProductForm setIsShow={setIsShow} /></Dialog>}
+        {loading ? <Loading /> : <ProductList products={products} isShow={isShow} setIsShow={setIsShow} />}
       </div>
       
   );
