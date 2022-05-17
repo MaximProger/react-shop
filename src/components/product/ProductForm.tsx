@@ -1,6 +1,6 @@
 import React, { useState, createRef } from "react";
 import { useDispatch } from "react-redux";
-import { createProduct } from "../../redux/actions";
+import { createProduct } from "../../store/action-creators/product";
 
 interface IProductFormProps {
   setIsShow(show: boolean): void;
@@ -11,6 +11,8 @@ function ProductForm({ setIsShow }: IProductFormProps): JSX.Element {
     title: "",
     description: "",
     image: "",
+    price: "",
+    category: "",
   });
 
   const dispatch = useDispatch();
@@ -41,7 +43,13 @@ function ProductForm({ setIsShow }: IProductFormProps): JSX.Element {
     };
     dispatch(createProduct(newProduct));
     setIsShow(false);
-    setProduct({ title: "", description: "", image: "" });
+    setProduct({
+      title: "",
+      description: "",
+      image: "",
+      price: "",
+      category: "",
+    });
   }
 
   return (

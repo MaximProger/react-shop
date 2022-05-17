@@ -1,17 +1,17 @@
-import { LOAD_PRODUCTS, REMOVE_PRODUCT, CREATE_PRODUCT } from "./types";
+import { IProductsList, ProductAction, ProductActionTypes } from "../../types/product";
 
-const initialState = {
+const initialState: IProductsList = {
   products: [],
 };
 
-export const productReducer = (state = initialState, action) => {
+export const productReducer = (state = initialState, action: ProductAction): IProductsList => {
   switch (action.type) {
-    case LOAD_PRODUCTS:
+    case ProductActionTypes.LOAD_PRODUCTS:
       return {
         ...state,
         products: action.data,
       };
-    case REMOVE_PRODUCT:
+    case ProductActionTypes.REMOVE_PRODUCT:
       return (() => {
         const id = action.data;
         const { products } = state;
@@ -23,7 +23,7 @@ export const productReducer = (state = initialState, action) => {
           products: filteredProducts,
         };
       })();
-    case CREATE_PRODUCT:
+    case ProductActionTypes.CREATE_PRODUCT:
       return {
         ...state,
         products: [...state.products, action.data],

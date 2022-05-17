@@ -1,12 +1,8 @@
 import { useState } from "react";
 import ProductItem from "./ProductItem";
-import { IProduct } from "../../types/types";
+import { IProduct, IProductsList } from "../../types/product";
 
-interface IProductsListProps {
-  products: IProduct[];
-}
-
-function ProductList({ products }: IProductsListProps): JSX.Element {
+function ProductList({ products }: IProductsList): JSX.Element {
   if (!products.length) {
     return <h1>Products list is empty</h1>;
   }

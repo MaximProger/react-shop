@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { removeProduct } from "../../redux/actions";
-import { IProduct } from "../../types/types";
+import { removeProduct } from "../../store/action-creators/product";
+import { IProduct } from "../../types/product";
 
 interface IProductProps {
   product: IProduct;

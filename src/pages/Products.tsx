@@ -3,18 +3,17 @@ import ProductList from "../components/product/ProductList";
 import Loading from "../components/Loading";
 import Dialog from "../components/UI/Dialog";
 import ProductForm from "../components/product/ProductForm";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts } from "../redux/actions";
+import { useTypedSelector } from "../hooks/useTypedSelector";
+import { useActions } from "../hooks/useActions";
 
 function Products() {
-  const products = useSelector((state) => state.productReducer.products);
-  const loading = useSelector((state) => state.appReducer.loading);
+  const products = useTypedSelector((state) => state.productReducer.products);
+  const loading = useTypedSelector((state) => state.appReducer.loading);
   const [isShow, setIsShow] = useState(false);
-
-  const dispatch = useDispatch();
+  const { fetchProducts } = useActions();
 
   useEffect(() => {
-    dispatch(fetchProducts());
+    fetchProducts();
   }, []);
 
   return (
@@ -31,15 +30,7 @@ function Products() {
           <ProductForm setIsShow={setIsShow} />
         </Dialog>
       )}
-      {loading ? (
-        <Loading />
-      ) : (
-        <ProductList
-          products={products}
-          isShow={isShow}
-          setIsShow={setIsShow}
-        />
-      )}
+      {loading ? <Loading /> : <ProductList products={products} />}
     </div>
   );
 }
