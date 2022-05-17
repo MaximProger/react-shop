@@ -1,14 +1,19 @@
-function Dialog({children, setIsShow}) {
+interface IDialogProps {
+  children: React.ReactNode;
+  setIsShow(isShow: boolean): void;
+}
 
+function Dialog({ children, setIsShow }: IDialogProps): JSX.Element {
   function closeDialog() {
     setIsShow(false);
   }
 
-  return ( 
+  return (
     <div
       className="product-dialog modal"
-      tabIndex="-1"
-      style={{display: 'block'}}>
+      tabIndex={-1}
+      style={{ display: "block" }}
+    >
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
@@ -21,13 +26,11 @@ function Dialog({children, setIsShow}) {
               onClick={closeDialog}
             ></button>
           </div>
-          <div className="modal-body">
-            {children}
-          </div>
+          <div className="modal-body">{children}</div>
         </div>
       </div>
     </div>
-   );
+  );
 }
 
 export default Dialog;
